@@ -38,7 +38,9 @@ function pageReady() {
             video.parentElement.parentElement.removeChild(parentDiv);
           });
 
-          socket.on("user-joined", function (id, count, clients) {
+          socket.on("user-joined", function (data) {
+            const {id, count, clients } = data
+
             clients.forEach(function (socketListId) {
               if (!connections[socketListId]) {
                 connections[socketListId] = new RTCPeerConnection(
