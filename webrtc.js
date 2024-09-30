@@ -14,7 +14,6 @@ var peerConnectionConfig = {
 
 function pageReady() {
   localVideo = document.getElementById("localVideo");
-  remoteVideo = document.getElementById("remoteVideo");
 
   var constraints = {
     video: true,
@@ -47,7 +46,7 @@ function pageReady() {
                   peerConnectionConfig
                 );
                 //Wait for their ice candidate
-                connections[socketListId].onicecandidate = function () {
+                connections[socketListId].onicecandidate = function (event) {
                   if (event.candidate != null) {
                     socket.emit(
                       "signal",
@@ -58,7 +57,7 @@ function pageReady() {
                 };
 
                 //Wait for their video stream
-                connections[socketListId].onaddstream = function () {
+                connections[socketListId].onaddstream = function (event) {
                   gotRemoteStream(event, socketListId);
                 };
 
@@ -94,6 +93,7 @@ function pageReady() {
 function getUserMediaSuccess(stream) {
   localStream = stream;
   localVideo.srcObject = stream;
+  localVideo.muted = true;
 }
 
 function gotRemoteStream(event, id) {
@@ -107,6 +107,7 @@ function gotRemoteStream(event, id) {
   video.autoplay = true;
   video.muted = true;
   video.playsinline = true;
+  video.play();
 
   div.appendChild(video);
   document.querySelector(".videos").appendChild(div);
