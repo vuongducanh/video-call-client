@@ -105,7 +105,6 @@ function gotRemoteStream(event, id) {
   // video.src         = window.URL.createObjectURL(event.stream);
   video.srcObject = event.stream;
   video.autoplay = true;
-  video.muted = true;
   video.playsinline = true;
   video.play();
 
