@@ -18,7 +18,7 @@ function pageReady() {
 
   var constraints = {
     video: true,
-    audio: false,
+    audio: true,
   };
 
   if (navigator.mediaDevices.getUserMedia) {
